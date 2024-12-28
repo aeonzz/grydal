@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -17,13 +16,13 @@ import Signin from "./signin";
 export default function SignInDialog() {
   const [open, setOpen] = useQueryState(
     "sign-in",
-    parseAsBoolean.withDefault(false).withOptions({ history: "replace" }),
+    parseAsBoolean.withDefault(false).withOptions({ history: "replace" })
   );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Sign In</Button>
+        <Button size="sm">Sign In</Button>
       </DialogTrigger>
       <DialogContent className="max-w-sm [&>button]:hidden">
         <DialogHeader className="items-center">

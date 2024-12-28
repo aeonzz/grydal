@@ -20,12 +20,13 @@ export default function Signin() {
     }
   };
   return (
-    <div className="flex flex-col gap-3 items-center justify-center">
+    <div className="flex flex-col items-center justify-center gap-3">
       <Button
         variant="outline"
         onClick={() => signIn("github")}
         disabled={isLoading}
         className="w-full"
+        size="sm"
       >
         <Github className="mr-2 h-4 w-4" />
         Sign in with GitHub
@@ -35,6 +36,7 @@ export default function Signin() {
         onClick={() => signIn("google")}
         disabled={isLoading}
         className="w-full"
+        size="sm"
       >
         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
           <path

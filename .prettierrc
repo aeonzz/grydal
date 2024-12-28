@@ -1,0 +1,32 @@
+{
+    "useTabs": false,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "semi": true,
+    "singleQuote": false,
+    "importOrder": [
+      "^(react/(.*)$)|^(react$)",
+      "^(next/(.*)$)|^(next$)",
+      "<THIRD_PARTY_MODULES>",
+      "",
+      "^types$",
+      "^@/types/(.*)$",
+      "^@/config/(.*)$",
+      "^@/lib/(.*)$",
+      "^@/hooks/(.*)$",
+      "^@/components/ui/(.*)$",
+      "^@/components/(.*)$",
+      "^@/registry/(.*)$",
+      "^@/styles/(.*)$",
+      "^@/app/(.*)$",
+      "",
+      "^[./]"
+    ],
+    "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "jsxSingleQuote": false,
+    "bracketSameLine": false,
+    "endOfLine": "lf",
+    "plugins": ["prettier-plugin-tailwindcss"]
+  }

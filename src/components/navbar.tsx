@@ -14,7 +14,7 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { buttonVariants } from "./ui/button";
 import { siteConfig } from "@/config/site";
-import { Icons } from "./icons";
+import { Icons } from "./icons/icons";
 import { SignInButton, SignInFallback } from "./signin-button";
 
 const musicLinks: { title: string; href: string; description: string }[] = [
@@ -61,7 +61,7 @@ export function NavBar() {
   );
 
   return (
-    <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between">
         <nav className="flex items-center gap-5">
           <Link href="/" className="tracking-tight text-xl font-bold">

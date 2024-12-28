@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 import { Session } from "@/lib/auth-type";
 import { signOut } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { Icons } from "./icons";
+import { Icons } from "./icons/icons";
 
 interface UserNavProps {
   session: Session;

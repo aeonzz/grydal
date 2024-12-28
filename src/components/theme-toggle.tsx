@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { authClient } from "@/lib/auth-client";
 
 import { Button } from "@/components/ui/button";
 import {
