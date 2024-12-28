@@ -3,13 +3,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ThemeToggle } from "./theme-toggle";
 import { buttonVariants } from "./ui/button";
@@ -17,39 +11,39 @@ import { siteConfig } from "@/config/site";
 import { Icons } from "./icons/icons";
 import { SignInButton, SignInFallback } from "./signin-button";
 
-const musicLinks: { title: string; href: string; description: string }[] = [
-  {
-    title: "Discover",
-    href: "/music/discover",
-    description: "Explore new and trending music across various genres.",
-  },
-  {
-    title: "Playlists",
-    href: "/music/playlists",
-    description: "Create, manage, and share your favorite playlists.",
-  },
-  {
-    title: "Artists",
-    href: "/music/artists",
-    description: "Browse and follow your favorite artists.",
-  },
-  {
-    title: "Albums",
-    href: "/music/albums",
-    description: "Explore full albums and discographies.",
-  },
-  {
-    title: "Radio",
-    href: "/music/radio",
-    description: "Listen to curated radio stations based on your preferences.",
-  },
-  {
-    title: "Live Events",
-    href: "/music/events",
-    description:
-      "Find and book tickets for upcoming concerts and music events.",
-  },
-];
+// const musicLinks: { title: string; href: string; description: string }[] = [
+//   {
+//     title: "Discover",
+//     href: "/music/discover",
+//     description: "Explore new and trending music across various genres.",
+//   },
+//   {
+//     title: "Playlists",
+//     href: "/music/playlists",
+//     description: "Create, manage, and share your favorite playlists.",
+//   },
+//   {
+//     title: "Artists",
+//     href: "/music/artists",
+//     description: "Browse and follow your favorite artists.",
+//   },
+//   {
+//     title: "Albums",
+//     href: "/music/albums",
+//     description: "Explore full albums and discographies.",
+//   },
+//   {
+//     title: "Radio",
+//     href: "/music/radio",
+//     description: "Listen to curated radio stations based on your preferences.",
+//   },
+//   {
+//     title: "Live Events",
+//     href: "/music/events",
+//     description:
+//       "Find and book tickets for upcoming concerts and music events.",
+//   },
+// ];
 
 export function NavBar() {
   const githubLink = React.useMemo(

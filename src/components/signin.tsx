@@ -14,6 +14,7 @@ export default function Signin() {
     try {
       await authClient.signIn.social({ provider });
     } catch (error) {
+      console.error(error);
       toast("Error signing in");
     } finally {
       setIsLoading(false);

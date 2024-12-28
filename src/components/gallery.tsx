@@ -46,7 +46,7 @@ export default function Gallery({ session, data }: GalleryProps) {
             You need to{" "}
             <Button
               variant="link"
-              onClick={() => setOpen(true)}
+              onClick={() => setOpen(!open)}
               className="p-0 text-lg text-blue-600 hover:underline"
             >
               sign in

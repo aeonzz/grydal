@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -29,7 +27,7 @@ export default function UserNav({ session }: UserNavProps) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Avatar className="size-6 rounded-md">
-            <AvatarImage src={session.user.image} />
+            <AvatarImage src={session.user.image ?? ''} />
             <AvatarFallback>{session.user.name?.charAt(0)}</AvatarFallback>
           </Avatar>
         </Button>
