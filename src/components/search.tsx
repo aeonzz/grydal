@@ -4,13 +4,14 @@ import React from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { SearchIcon } from "lucide-react";
-import { usePathname, useRouter, useParams } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { useRouter } from "nextjs-toploader/app";
 
 interface SearchProps {
   showOnNavbar?: boolean;
