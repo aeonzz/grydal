@@ -27,7 +27,7 @@ export default function UserNav({ session }: UserNavProps) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Avatar className="size-6 rounded-md">
-            <AvatarImage src={session.user.image ?? ''} />
+            <AvatarImage src={session.user.image ?? ""} />
             <AvatarFallback>{session.user.name?.charAt(0)}</AvatarFallback>
           </Avatar>
         </Button>
@@ -44,15 +44,18 @@ export default function UserNav({ session }: UserNavProps) {
             await signOut({
               fetchOptions: {
                 onSuccess() {
-                  router.push("/");
+                  router.refresh();
+                  setIsSignOut(false);
+                },
+                onError() {
+                  setIsSignOut(false);
                 },
               },
             });
-            setIsSignOut(false);
           }}
           disabled={isSignOut}
         >
-          <Icons.logout />
+          {isSignOut ? <Icons.spinner /> : <Icons.logout />}
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

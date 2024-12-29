@@ -1,6 +1,5 @@
 import React from "react";
-import { Input } from "./ui/input";
-import { SearchIcon } from "./icons/search";
+import HeroCta from "./hero-cta";
 
 export default function Hero() {
   return (
@@ -12,10 +11,7 @@ export default function Hero() {
         Powered by Pexels API, explore a vast collection of stunning,
         free-to-use images for every project.
       </p>
-      <div className="flex w-full max-w-md items-center gap-2 rounded-lg border bg-background p-2">
-        <Input placeholder="Search images" className="" />
-        <SearchIcon />
-      </div>
+      <HeroCta />
     </main>
   );
 }

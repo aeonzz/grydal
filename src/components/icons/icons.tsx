@@ -62,4 +62,115 @@ export const Icons = {
       <line x1="21" x2="9" y1="12" y2="12" />
     </svg>
   ),
+  spinner: (props: IconProps) => (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      {...props}
+    >
+      <g>
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(210 12 12)"
+          opacity=".0.01"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(240 12 12)"
+          opacity=".05"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(270 12 12)"
+          opacity=".15"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(300 12 12)"
+          opacity=".25"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(330 12 12)"
+          opacity=".35"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(360 12 12)"
+          opacity=".45"
+        />
+        <rect x="12" y="0" width="2" height="6.5" opacity=".14" />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(30 12 12)"
+          opacity=".55"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(60 12 12)"
+          opacity=".65"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(90 12 12)"
+          opacity=".75"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(120 12 12)"
+          opacity=".85"
+        />
+        <rect
+          x="12"
+          y="0"
+          width="2"
+          height="6.5"
+          transform="rotate(150 12 12)"
+          opacity="0.95"
+        />
+        <rect x="12" y="0" width="2" height="6.5" transform="rotate(180 12 12)" />
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          calcMode="discrete"
+          dur="1.2s"
+          values="0 12 12;30 12 12;60 12 12;90 12 12;120 12 12;150 12 12;180 12 12;210 12 12;240 12 12;270 12 12;300 12 12;330 12 12;360 12 12"
+          repeatCount="indefinite"
+        />
+      </g>
+    </svg>
+  ),
 };
