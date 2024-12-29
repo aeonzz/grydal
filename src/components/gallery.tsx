@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Photo, Photos } from "pexels";
+import { Photos } from "pexels";
 import React from "react";
 import { cn } from "@/lib/utils";
 import GalleryPhoto from "./gallery-photo";
