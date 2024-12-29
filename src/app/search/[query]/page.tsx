@@ -1,6 +1,5 @@
-import GalleryPhoto from "@/components/gallery-photo";
 import HomeLayout from "@/components/layout/home-layout";
-import SearchFilter from "@/components/search-filter";
+import SearchGallery from "@/components/search-gallery";
 import { pexelsClient } from "@/lib/pexels-client";
 import { Photos } from "pexels";
 import React from "react";
@@ -20,8 +19,6 @@ export default async function SearchPage({ params }: SearchPageProps) {
     return <div>Error</div>;
   }
 
-  console.log(photos);
-
   const data = (photos as Photos).photos;
 
   return (
@@ -40,16 +37,7 @@ export default async function SearchPage({ params }: SearchPageProps) {
             </h1>
           )}
         </div>
-        <div className="flex items-center justify-between pb-4">
-          <p className="text-xs text-muted-foreground">
-            Photos provided by Pexels
-          </p>
-          <SearchFilter />
-        </div>
-        <div className="columns-1 gap-4 space-y-4 pb-5 sm:columns-2 md:columns-3">
-          {data.length !== 0 &&
-            data.map((photo) => <GalleryPhoto key={photo.id} photo={photo} />)}
-        </div>
+        <SearchGallery data={data} />
       </div>
     </HomeLayout>
   );

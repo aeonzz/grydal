@@ -104,7 +104,7 @@ export default function GalleryPhoto({ photo }: GalleryPhotoProps) {
               </Link>
             </DialogTitle>
             <DialogDescription>
-              {photo.alt ? photo.alt : "---"}
+              {photo.url.split("/photo/")[1].split("-").slice(0, -1).join(" ")}
             </DialogDescription>
           </DialogHeader>
           <div className="flex gap-2">
