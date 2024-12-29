@@ -2,9 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenuLink,
-} from "@/components/ui/navigation-menu";
+import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { ThemeToggle } from "./theme-toggle";
 import { buttonVariants } from "./ui/button";
 import { siteConfig } from "@/config/site";
@@ -45,7 +43,11 @@ import { SignInButton, SignInFallback } from "./signin-button";
 //   },
 // ];
 
-export function NavBar() {
+interface NavBarProps {
+  children?: React.ReactNode;
+}
+
+export function NavBar({ children }: NavBarProps) {
   const githubLink = React.useMemo(
     () => ({
       href: siteConfig.links.github,
@@ -55,12 +57,13 @@ export function NavBar() {
   );
 
   return (
-    <header className="sticky top-0 z-10 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-10 w-full border-b bg-background">
       <div className="container flex h-14 items-center justify-between">
         <nav className="flex items-center gap-5">
-          <Link href="/" className="tracking-tight text-xl font-bold">
+          <Link href="/" prefetch className="text-xl font-bold tracking-tight">
             grydal
           </Link>
+          {children}
           {/* <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>

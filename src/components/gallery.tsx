@@ -8,7 +8,7 @@ import { getServerSession } from "@/lib/server-session";
 import { pexelsClient } from "@/lib/pexels-client";
 
 export default async function Gallery() {
-  const photos = await pexelsClient.photos.curated({ per_page: 50 });
+  const photos = await pexelsClient.photos.search({ query: "dark", per_page: 50 });
 
   if (!photos) {
     return <div>Error</div>;

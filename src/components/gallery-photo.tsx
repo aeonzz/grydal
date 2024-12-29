@@ -18,9 +18,15 @@ import Image from "next/image";
 import { Photo } from "pexels";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Download, Info } from "lucide-react";
+import { Camera, Download, Info } from "lucide-react";
 import { toast } from "sonner";
 import { Icons } from "./icons/icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 interface GalleryPhotoProps {
   photo: Photo;
@@ -61,8 +67,24 @@ export default function GalleryPhoto({ photo }: GalleryPhotoProps) {
             priority
             unoptimized
           />
-          <div className="absolute -bottom-20 left-0 right-0 text-white bg-black bg-opacity-50 p-4 text-foreground transition-all duration-300 ease-in-out group-hover:bottom-0">
-            <p className="text-sm">{photo.alt ? photo.alt : "---"}</p>
+          <div className="absolute -bottom-28 left-0 right-0 p-2 transition-all duration-300 ease-in-out group-hover:bottom-0">
+            <Card className="border-none bg-black bg-opacity-50 shadow-none">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-1 text-white">
+                  <div className="grid size-8 place-items-center rounded-full border">
+                    <Camera className="mb-[1px] size-4" />
+                  </div>
+                  {photo.photographer}
+                </CardTitle>
+                <CardDescription className="capitalize">
+                  {photo.url
+                    .split("/photo/")[1]
+                    .split("-")
+                    .slice(0, -1)
+                    .join(" ")}
+                </CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </DialogTrigger>
@@ -86,39 +108,54 @@ export default function GalleryPhoto({ photo }: GalleryPhotoProps) {
             </DialogDescription>
           </DialogHeader>
           <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="default"
-              disabled={isDownloading}
-              onClick={handleDownload}
-            >
-              {isDownloading ? <Icons.spinner /> : <Download />}
-              Download
-            </Button>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button size="sm" variant="outline">
-                  <Info />
-                  More info
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="sm"
+                  variant="default"
+                  disabled={isDownloading}
+                  onClick={handleDownload}
+                >
+                  {isDownloading ? <Icons.spinner /> : <Download />}
+                  Download
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent
-                align="end"
-                onOpenAutoFocus={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                <h4 className="text-lg font-semibold">Photo details</h4>
-                <div className="mt-1 space-y-2">
-                  <p className="text-xs text-muted-foreground">
-                    <strong>Dimensions:</strong> {photo.width} x {photo.height}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    <strong>Average color:</strong> {photo.avg_color}
-                  </p>
-                </div>
-              </PopoverContent>
-            </Popover>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Download photo</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <Popover>
+                <TooltipTrigger asChild>
+                  <PopoverTrigger asChild>
+                    <Button size="sm" variant="outline">
+                      <Info />
+                      More info
+                    </Button>
+                  </PopoverTrigger>
+                </TooltipTrigger>
+                <PopoverContent
+                  align="end"
+                  onOpenAutoFocus={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <h4 className="text-lg font-semibold">Photo details</h4>
+                  <div className="mt-1 space-y-2">
+                    <p className="text-xs text-muted-foreground">
+                      <strong>Dimensions:</strong> {photo.width} x{" "}
+                      {photo.height}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      <strong>Average color:</strong> {photo.avg_color}
+                    </p>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              <TooltipContent>
+                <p>View photo details</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
         <div className="relative flex-grow overflow-hidden">
@@ -132,7 +169,7 @@ export default function GalleryPhoto({ photo }: GalleryPhotoProps) {
               priority
             />
           </div>
-          <p className="absolute text-xs text-muted-foreground right-0 bottom-0 p-2">
+          <p className="absolute bottom-0 right-0 p-2 text-xs text-muted-foreground">
             Photo provided by Pexels
           </p>
         </div>
