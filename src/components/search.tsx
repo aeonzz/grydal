@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { useRouter } from "nextjs-toploader/app";
-import { useQueryStore } from "@/app/hooks/use-query-store";
 
 interface SearchProps {
   showOnNavbar?: boolean;
@@ -22,8 +21,7 @@ export default function Search({ showOnNavbar = false }: SearchProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams<{ query: string }>();
-  const { query, setQuery } = useQueryStore();
-  const [scrolled, setScrolled] = React.useState(false);
+  const [query, setQuery] = React.useState("");
 
   const defaultValue = React.useMemo(() => {
     if (Array.isArray(params.query)) {
@@ -52,16 +50,7 @@ export default function Search({ showOnNavbar = false }: SearchProps) {
     router.prefetch(`/search`);
   }, [query, router]);
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 400);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  if (!scrolled && showOnNavbar && !pathname.startsWith("/search")) {
+  if (showOnNavbar && !pathname.startsWith("/search")) {
     return null;
   }
 
@@ -75,7 +64,7 @@ export default function Search({ showOnNavbar = false }: SearchProps) {
       <Input
         placeholder="Search photos"
         className="bg-background"
-        value={query || defaultValue}
+        defaultValue={defaultValue}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
       />
