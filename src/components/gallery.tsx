@@ -6,22 +6,26 @@ import GalleryPhoto from "./gallery-photo";
 import SignInInfo from "./sign-in-info";
 import { getServerSession } from "@/lib/server-session";
 import { pexelsClient } from "@/lib/pexels-client";
+import { getImages } from "@/lib/get-base64";
 
 export default async function Gallery() {
-  const photos = await pexelsClient.photos.search({ query: "dark", per_page: 50 });
+  const photos = await pexelsClient.photos.search({
+    query: "black",
+    per_page: 27,
+  });
 
   if (!photos) {
     return <div>Error</div>;
   }
 
-  const data = (photos as Photos).photos;
+  const data = await getImages((photos as Photos).photos);
 
   const session = await getServerSession();
 
   return (
     <div
       className={cn(
-        "container relative mx-auto px-4",
+        "container relative mx-auto px-4 pb-4",
         !session && "h-screen overflow-hidden"
       )}
     >

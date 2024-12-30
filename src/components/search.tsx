@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { useRouter } from "nextjs-toploader/app";
+import { useQueryStore } from "@/app/hooks/use-query-store";
 
 interface SearchProps {
   showOnNavbar?: boolean;
@@ -20,22 +21,47 @@ interface SearchProps {
 export default function Search({ showOnNavbar = false }: SearchProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
-  const [query, setQuery] = React.useState("");
+  const params = useParams<{ query: string }>();
+  const { query, setQuery } = useQueryStore();
+  const [scrolled, setScrolled] = React.useState(false);
 
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+  const defaultValue = React.useMemo(() => {
+    if (Array.isArray(params.query)) {
+      return params.query.join(" ").split("%20").join(" ");
+    }
+    return params.query?.split("%20").join(" ") || "";
+  }, [params.query]);
+
+  const handleSearch = React.useCallback(() => {
+    if (query) {
+      router.push(`/search/${query}`);
+    }
+  }, [query, router]);
+
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter" && query) {
         e.preventDefault();
         router.push(`/search/${query}`);
       }
-    };
+    },
+    [query, router]
+  );
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+  React.useEffect(() => {
+    router.prefetch(`/search`);
   }, [query, router]);
 
-  if (showOnNavbar && !pathname.startsWith("/search")) {
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (!scrolled && showOnNavbar && !pathname.startsWith("/search")) {
     return null;
   }
 
@@ -49,12 +75,9 @@ export default function Search({ showOnNavbar = false }: SearchProps) {
       <Input
         placeholder="Search photos"
         className="bg-background"
-        defaultValue={
-          Array.isArray(params.query)
-            ? params.query.join(" ").split("%20").join(" ")
-            : params.query?.split("%20").join(" ")
-        }
+        value={query || defaultValue}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <Tooltip>
         <TooltipTrigger asChild>
@@ -62,11 +85,7 @@ export default function Search({ showOnNavbar = false }: SearchProps) {
             size="icon"
             variant="outline"
             className="px-4"
-            onClick={() => {
-              if (query) {
-                router.push(`/search/${query}`);
-              }
-            }}
+            onClick={handleSearch}
           >
             <SearchIcon />
           </Button>
