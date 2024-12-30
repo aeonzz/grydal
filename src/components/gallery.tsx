@@ -6,7 +6,6 @@ import GalleryPhoto from "./gallery-photo";
 import SignInInfo from "./sign-in-info";
 import { getServerSession } from "@/lib/server-session";
 import { pexelsClient } from "@/lib/pexels-client";
-import { getImages } from "@/lib/get-base64";
 
 export default async function Gallery() {
   const photos = await pexelsClient.photos.search({
@@ -18,7 +17,7 @@ export default async function Gallery() {
     return <div>Error</div>;
   }
 
-  const data = await getImages((photos as Photos).photos);
+  const data = (photos as Photos).photos;
 
   const session = await getServerSession();
 

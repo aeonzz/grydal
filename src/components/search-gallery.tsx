@@ -3,11 +3,11 @@
 import React from "react";
 import { useOrientation } from "@/app/hooks/use-orientation";
 import GalleryPhoto from "./gallery-photo";
-import { PhotosWithBase64 } from "@/lib/types";
 import { ImageOff } from "lucide-react";
+import { Photo } from "pexels";
 
 interface SearchGalleryProps {
-  data: PhotosWithBase64[];
+  data: Photo[];
 }
 
 export default function SearchGallery({ data }: SearchGalleryProps) {

@@ -15,10 +15,10 @@ import { Download, Info } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { Icons } from "./icons/icons";
-import { PhotosWithBase64 } from "@/lib/types";
+import { Photo } from "pexels";
 
 interface PhotoDialogProps {
-  photo: PhotosWithBase64;
+  photo: Photo;
 }
 
 export default function PhotoDialog({ photo }: PhotoDialogProps) {

@@ -4,19 +4,22 @@ import Image from "next/image";
 import { Camera } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import PhotoDialog from "./photo-dialog";
-import { PhotosWithBase64 } from "@/lib/types";
+import { Photo } from "pexels";
+import { getImage } from "@/lib/get-base64";
 
 interface GalleryPhotoProps {
-  photo: PhotosWithBase64;
+  photo: Photo;
 }
 
-export default function GalleryPhoto({ photo }: GalleryPhotoProps) {
+export default async function GalleryPhoto({ photo: data }: GalleryPhotoProps) {
+  const photo = await getImage(data);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <div className="group relative cursor-pointer break-inside-avoid overflow-hidden rounded-lg">
           <Image
-            src={photo.src.original}
+            src={photo.src.large2x}
             alt={photo.photographer}
             className="h-auto w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:brightness-75"
             width={photo.width}
