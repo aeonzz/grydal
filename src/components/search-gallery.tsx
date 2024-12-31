@@ -1,27 +1,32 @@
 "use client";
 
 import React from "react";
-import { useOrientation } from "@/app/hooks/use-orientation";
 import GalleryPhoto from "./gallery-photo";
 import { ImageOff } from "lucide-react";
 import { Photo } from "pexels";
+import { useSearchParams } from "next/navigation";
 
 interface SearchGalleryProps {
   data: Photo[];
 }
 
 export default function SearchGallery({ data }: SearchGalleryProps) {
-  const { orientation } = useOrientation();
+  const searchParams = useSearchParams();
 
-  const filteredPhotos = data.filter((photo) => {
-    if (orientation === "landscape") {
-      return photo.width > photo.height;
-    } else if (orientation === "portrait") {
-      return photo.height > photo.width;
-    } else {
-      return true;
-    }
-  });
+  const orientation = searchParams.get("orientation");
+
+  const filteredPhotos = React.useMemo(() => {
+    return data.filter((photo) => {
+      if (orientation === "landscape") {
+        return photo.width > photo.height;
+      } else if (orientation === "portrait") {
+        return photo.height > photo.width;
+      } else {
+        return true;
+      }
+    });
+  }, [data, orientation]);
+
   return (
     <React.Fragment>
       {filteredPhotos.length === 0 ? (

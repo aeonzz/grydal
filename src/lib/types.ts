@@ -4,3 +4,11 @@ export type PhotoResponse = {
   data: PhotosWithTotalResults | ErrorResponse | null;
   error: string | null;
 };
+
+export type QueryParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
+
+export type PageParamsType = {
+  page: number;
+};

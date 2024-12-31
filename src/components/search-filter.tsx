@@ -13,10 +13,14 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useOrientation } from "@/app/hooks/use-orientation";
+import { parseAsString, useQueryState } from "nuqs";
 
 export default function SearchFilter() {
-  const { orientation, setOrientation } = useOrientation();
+  const [orientation, setOrientation] = useQueryState(
+    "orientation",
+    parseAsString.withDefault("all").withOptions({ history: "push" })
+  );
+  
   return (
     <>
       <Tooltip>

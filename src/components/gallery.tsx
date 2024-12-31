@@ -1,31 +1,39 @@
-import Image from "next/image";
-import { Photos } from "pexels";
-import React from "react";
-import { cn } from "@/lib/utils";
-import GalleryPhoto from "./gallery-photo";
-import SignInInfo from "./sign-in-info";
-import { getServerSession } from "@/lib/server-session";
+"use client";
+
 import { getPhotos } from "@/actions/photo.action";
+import { useSession } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
+import React from "react";
+import SignInInfo from "./sign-in-info";
+import GalleryPhoto from "./gallery-photo";
+import { Photos } from "pexels";
+import Image from "next/image";
+import GalleryPagination from "./gallery-pagination";
 
-export default async function Gallery() {
-  const response = await getPhotos();
+interface GalleryProps {
+  photosPromise: ReturnType<typeof getPhotos>;
+  page: number;
+}
 
-  if (!response.data || response.error) {
-    return <div>Error</div>;
-  }
+export default function Gallery({
+  photosPromise,
+  page: currentPage,
+}: GalleryProps) {
+  const { data: photos } = React.use(photosPromise);
+  const session = useSession();
 
-  const data = (response.data as Photos).photos;
+  if (!photos) return null;
 
-  const session = await getServerSession();
+  const data = (photos as Photos).photos;
 
   return (
     <div
       className={cn(
-        "container relative mx-auto px-4 pb-4",
+        "container relative mx-auto flex flex-col px-4 pb-4",
         !session && "h-screen overflow-hidden"
       )}
     >
-      <SignInInfo session={session} />
+      <SignInInfo session={session.data} />
       <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3">
         {session ? (
           <React.Fragment>
@@ -50,6 +58,7 @@ export default async function Gallery() {
           </React.Fragment>
         )}
       </div>
+      {session && <GalleryPagination currentPage={currentPage} />}
     </div>
   );
 }
