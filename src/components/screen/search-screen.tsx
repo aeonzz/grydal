@@ -11,7 +11,7 @@ interface SearchScreenProps {
 export default async function SearchScreen({ slug }: SearchScreenProps) {
   const photos = await pexelsClient.photos.search({
     query: slug,
-    per_page: 27,
+    per_page: 10,
   });
 
   if (!photos) {

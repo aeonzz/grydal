@@ -5,19 +5,16 @@ import { cn } from "@/lib/utils";
 import GalleryPhoto from "./gallery-photo";
 import SignInInfo from "./sign-in-info";
 import { getServerSession } from "@/lib/server-session";
-import { pexelsClient } from "@/lib/pexels-client";
+import { getPhotos } from "@/actions/photo.action";
 
 export default async function Gallery() {
-  const photos = await pexelsClient.photos.search({
-    query: "black",
-    per_page: 27,
-  });
+  const response = await getPhotos();
 
-  if (!photos) {
+  if (!response.data || response.error) {
     return <div>Error</div>;
   }
 
-  const data = (photos as Photos).photos;
+  const data = (response.data as Photos).photos;
 
   const session = await getServerSession();
 

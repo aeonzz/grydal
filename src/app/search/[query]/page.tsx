@@ -1,8 +1,7 @@
-import GallerySkeleton from "@/components/gallery-skeleton";
 import HomeLayout from "@/components/layout/home-layout";
 import SearchScreen from "@/components/screen/search-screen";
 import SearchFilter from "@/components/search-filter";
-import React, { Suspense } from "react";
+import React from "react";
 
 interface SearchPageProps {
   params: Promise<{ query: string }>;
@@ -25,9 +24,7 @@ export default async function SearchPage({ params }: SearchPageProps) {
           </p>
           <SearchFilter />
         </div>
-        <Suspense fallback={<GallerySkeleton />}>
-          <SearchScreen slug={slug} />
-        </Suspense>
+        <SearchScreen slug={slug} />
       </div>
     </HomeLayout>
   );

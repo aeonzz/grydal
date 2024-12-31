@@ -1,5 +1,6 @@
-import { Photo } from "pexels";
+import { ErrorResponse, PhotosWithTotalResults } from "pexels";
 
-export type PhotosWithBase64 = Photo & {
-  base64: string;
+export type PhotoResponse = {
+  data: PhotosWithTotalResults | ErrorResponse | null;
+  error: string | null;
 };

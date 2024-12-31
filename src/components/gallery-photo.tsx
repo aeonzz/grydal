@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
@@ -5,15 +7,14 @@ import { Camera } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import PhotoDialog from "./photo-dialog";
 import { Photo } from "pexels";
-import { getImage } from "@/lib/get-base64";
+import { cn } from "@/lib/utils";
 
 interface GalleryPhotoProps {
   photo: Photo;
 }
 
-export default async function GalleryPhoto({ photo: data }: GalleryPhotoProps) {
-  const photo = await getImage(data);
-
+export default function GalleryPhoto({ photo }: GalleryPhotoProps) {
+  const [isLoading, setLoading] = React.useState(true);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -21,11 +22,13 @@ export default async function GalleryPhoto({ photo: data }: GalleryPhotoProps) {
           <Image
             src={photo.src.large2x}
             alt={photo.photographer}
-            className="h-auto w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:brightness-75"
+            className={cn(
+              "h-auto w-full bg-secondary object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:brightness-75",
+              isLoading ? "blur-md" : "blur-0"
+            )}
             width={photo.width}
-            blurDataURL={photo.base64}
-            placeholder="blur"
             height={photo.height}
+            onLoad={() => setLoading(false)}
             priority
             sizes="(min-width: 1480px) 447px, (min-width: 780px) 30.44vw, (min-width: 640px) calc(50vw - 23px), calc(100vw - 30px)"
           />
