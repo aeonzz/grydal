@@ -1,17 +1,16 @@
 "use server";
 
 import { pexelsClient } from "@/lib/pexels-client";
-import { PageParamsType, PhotoResponse } from "@/lib/types";
+import {  PhotoResponse } from "@/lib/types";
 
 export async function getPhotos(
-  payload: PageParamsType
+  payload: number
 ): Promise<PhotoResponse> {
-  const { page } = payload;
   try {
     const response = await pexelsClient.photos.search({
       query: "black",
       per_page: 20,
-      page: page,
+      page: payload,
     });
 
     return { data: response, error: null };

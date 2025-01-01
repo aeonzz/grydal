@@ -1,64 +1,47 @@
 "use client";
 
-import { getPhotos } from "@/actions/photo.action";
-import { useSession } from "@/lib/auth-client";
-import { cn } from "@/lib/utils";
 import React from "react";
-import SignInInfo from "./sign-in-info";
+import useSWR from "swr";
+import { ReturnType } from "@/lib/types";
 import GalleryPhoto from "./gallery-photo";
-import { Photos } from "pexels";
-import Image from "next/image";
 import GalleryPagination from "./gallery-pagination";
+import { Icons } from "./icons/icons";
+import { fetcher } from "@/lib/api";
 
-interface GalleryProps {
-  photosPromise: ReturnType<typeof getPhotos>;
-  page: number;
-}
+export default function Gallery() {
+  const [page, setPage] = React.useState(1);
+  const focusRef = React.useRef<HTMLDivElement>(null);
+  const { data, isLoading } = useSWR<ReturnType, Error>(
+    `/api/photos/get-photos?page=${page}&search=black`,
+    fetcher
+  );
 
-export default function Gallery({
-  photosPromise,
-  page: currentPage,
-}: GalleryProps) {
-  const { data: photos } = React.use(photosPromise);
-  const session = useSession();
-
-  if (!photos) return null;
-
-  const data = (photos as Photos).photos;
+  React.useEffect(() => {
+    if (focusRef.current && page !== 1) {
+      focusRef.current.scrollIntoView();
+    }
+  }, [page, data]);
 
   return (
-    <div
-      className={cn(
-        "container relative mx-auto flex flex-col px-4 pb-4",
-        !session && "h-screen overflow-hidden"
-      )}
-    >
-      <SignInInfo session={session.data} />
-      <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3">
-        {session ? (
-          <React.Fragment>
-            {data.map((photo) => (
+    <div className="container relative mx-auto flex flex-col px-4 pb-4">
+      <div ref={focusRef} className="mb-20"></div>
+      {!isLoading && !data && <div className="mt-4 text-center">Error</div>}
+      {!isLoading && data && (
+        <React.Fragment>
+          <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3">
+            {data.data.photos.map((photo) => (
               <GalleryPhoto key={photo.id} photo={photo} />
             ))}
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            {data.slice(0, 6).map((photo) => (
-              <Image
-                key={photo.id}
-                src={photo.src.large2x}
-                alt={photo.photographer}
-                className="h-auto w-full rounded-lg object-cover"
-                width={photo.width}
-                height={photo.height}
-                priority
-                unoptimized
-              />
-            ))}
-          </React.Fragment>
-        )}
-      </div>
-      {session && <GalleryPagination currentPage={currentPage} />}
+          </div>
+        </React.Fragment>
+      )}
+      {isLoading && (
+        <div className="mt-4 flex min-h-[75vh] flex-col items-center justify-center gap-3">
+          <Icons.spinner className="opacity-60" />
+          <p className="ml-2 text-xs text-muted-foreground">Loading...</p>
+        </div>
+      )}
+      <GalleryPagination page={page} setPage={setPage} isLoading={isLoading} />
     </div>
   );
 }

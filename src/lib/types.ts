@@ -5,10 +5,6 @@ export type PhotoResponse = {
   error: string | null;
 };
 
-export type QueryParams = Promise<{
-  [key: string]: string | string[] | undefined;
-}>;
-
-export type PageParamsType = {
-  page: number;
+export type ReturnType = {
+  data: PhotosWithTotalResults;
 };
