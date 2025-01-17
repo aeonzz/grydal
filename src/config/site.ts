@@ -7,5 +7,5 @@ export const siteConfig = {
   description:
     "grydal is an application where users can share their works and collaborate with others. It provides a simple and intuitive platform for showcasing and discovering projects.",
   url: env.NEXT_PUBLIC_APP_URL,
-  links: { github: "https://github.com/aeonzz/eqeon" },
+  links: { github: "https://github.com/aeonzz/grydal" },
 };
